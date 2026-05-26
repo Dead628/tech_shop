@@ -62,6 +62,7 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             customer_id INTEGER NOT NULL,
             order_datetime TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            delivery_method TEXT NOT NULL DEFAULT 'pickup',
             total_amount REAL DEFAULT 0,
             status TEXT NOT NULL DEFAULT 'Новый',
             FOREIGN KEY (customer_id) REFERENCES Customers(id)
@@ -115,7 +116,7 @@ def init_db():
             full_name TEXT NOT NULL,
             role TEXT NOT NULL CHECK(role IN ('Администратор', 'Менеджер', 'Кассир-кладовщик')),
             is_active INTEGER DEFAULT 1
-        )
+        );
     ''')
     
     cursor.execute("SELECT COUNT(*) FROM Users WHERE role = 'Администратор'")
@@ -124,13 +125,9 @@ def init_db():
             INSERT INTO Users (username, password, full_name, role, is_active) VALUES 
             ('admin', 'admin123', 'Системный Администратор', 'Администратор', 1)
         ''')
-        print("Администратор создан")
-    else:
-        print("Администратор уже существует")
     
     conn.commit()
     conn.close()
-    print("База данных инициализирована")
 
 
 def get_all(table_name):
