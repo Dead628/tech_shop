@@ -116,7 +116,7 @@ def init_db():
             full_name TEXT NOT NULL,
             role TEXT NOT NULL CHECK(role IN ('Администратор', 'Менеджер', 'Кассир-кладовщик')),
             is_active INTEGER DEFAULT 1
-        );
+        )
     ''')
     
     cursor.execute("SELECT COUNT(*) FROM Users WHERE role = 'Администратор'")

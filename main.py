@@ -97,22 +97,15 @@ class LoginWindow:
 
 
 def main():
+    from database import init_db
+    init_db()
     root = tk.Tk()
     app = LoginWindow(root)
     root.mainloop()
-    from database import init_db
     from models import ProductModel, CategoryModel
-
-    init_db()
 
     cat_model = CategoryModel()
     prod_model = ProductModel()
-
-    categories = cat_model.get_all()
-    print("Категории:", categories)
-
-    products = prod_model.get_all()
-    print("Товары:", products)
 
 
 if __name__ == "__main__":
